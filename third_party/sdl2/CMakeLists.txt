@@ -9,6 +9,12 @@ if (ANDROID)
     set(SDL_STATIC_PIC ON)
 endif()
 
+# SDL 2.26.1 declares cmake_minimum_required(VERSION 3.0.0). CMake 4.0 removed
+# compatibility with CMake < 3.5 and refuses to configure it. Raise the policy
+# floor for this vendored dependency only (the variable is scoped to this
+# directory and the FetchContent subtree it adds).
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+
 include(FetchContent)
 
 FetchContent_Declare(sdl2
